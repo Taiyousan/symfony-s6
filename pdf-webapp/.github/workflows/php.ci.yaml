@@ -47,13 +47,13 @@ jobs:
       run: vendor/bin/phpunit
       
     - name: Run PHPUnit
-      run: vendor/bin/phpunit pdf-webapp/tests/
+      run: vendor/bin/phpunit tests/
 
     - name: Run PHP_CodeSniffer
-      run: vendor/bin/phpcs --standard=PSR2 pdf-webapp/src/
+      run: vendor/bin/phpcs --standard=PSR2 src/
 
     - name: Run PHPStan
-      run: vendor/bin/phpstan analyze pdf-webapp/src/
+      run: vendor/bin/phpstan analyze src/
 
     - name: Run PHPMD
-      run: vendor/bin/phpmd pdf-webapp/src/ text cleancode,codesize,controversial,design,naming
+      run: vendor/bin/phpmd src/ text cleancode,codesize,controversial,design,naming

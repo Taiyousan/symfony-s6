@@ -22,7 +22,7 @@ class Subscription
     private ?string $description = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $pdf_limit = null;
+    private ?string $pdfLimit = null;
 
     #[ORM\Column(length: 255)]
     private ?string $price = null;
@@ -72,12 +72,12 @@ class Subscription
 
     public function getPdfLimit(): ?string
     {
-        return $this->pdf_limit;
+        return $this->pdfLimit;
     }
 
-    public function setPdfLimit(string $pdf_limit): static
+    public function setPdfLimit(string $pdfLimit): static
     {
-        $this->pdf_limit = $pdf_limit;
+        $this->pdfLimit = $pdfLimit;
 
         return $this;
     }

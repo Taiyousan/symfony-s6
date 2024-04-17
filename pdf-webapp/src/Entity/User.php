@@ -55,6 +55,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Pdf::class, mappedBy: 'owner')]
     private Collection $pdfs;
 
+    #[ORM\ManyToOne(inversedBy: 'users')]
+    private ?Subscription $subscription = null;
+
+    #[ORM\Column]
+    private ?\DateTimeImmutable $subscription_end_at = null;
+
     public function __construct()
     {
         $this->pdfs = new ArrayCollection();
@@ -221,6 +227,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $pdf->setOwner(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSubscription(): ?Subscription
+    {
+        return $this->subscription;
+    }
+
+    public function setSubscription(?Subscription $subscription): static
+    {
+        $this->subscription = $subscription;
+
+        return $this;
+    }
+
+    public function getSubscriptionEndAt(): ?\DateTimeImmutable
+    {
+        return $this->subscription_end_at;
+    }
+
+    public function setSubscriptionEndAt(\DateTimeImmutable $subscription_end_at): static
+    {
+        $this->subscription_end_at = $subscription_end_at;
 
         return $this;
     }

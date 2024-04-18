@@ -23,7 +23,8 @@ class ConvertUrl extends AbstractController
     public function index(Request $request): Response
     {
 
-        $url = ['url' => 'https://shamsbenhamou.fr/'];
+        $url = ['url' => $request->request->get('url')];
+
 
         // Envoyer la requête à Gotenberg pour convertir HTML en PDF
         $response = $this->httpClient->request('POST', 'http://localhost:3000/forms/chromium/convert/url', 

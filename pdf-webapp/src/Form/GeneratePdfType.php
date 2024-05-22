@@ -24,7 +24,6 @@ class GeneratePdfType extends AbstractType
                 'label' => 'Generate PDF',
                 'attr' => [
                     'class' => 'btn btn-primary',
-                    'data-turbo' => 'false',
                     'formtarget' => '_blank',
                 ],
             ])

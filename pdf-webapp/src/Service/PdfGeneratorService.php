@@ -4,6 +4,7 @@ namespace App\Service;
 
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Exception;
 
 class PdfGeneratorService
 {
@@ -27,7 +28,7 @@ class PdfGeneratorService
         ]);
 
         if ($response->getStatusCode() !== 200) {
-            throw new \Exception('Erreur lors de la génération du PDF.');
+            throw new Exception('Erreur lors de la génération du PDF.');
         }
 
         return $response->getContent();

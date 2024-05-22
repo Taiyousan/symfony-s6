@@ -11,7 +11,7 @@ use App\Service\PdfGeneratorService;
 
 class GeneratePdfController extends AbstractController
 {
-    #[Route('/generate-pdf', name: 'app_generate_pdf')]
+    #[Route('/generate-pdf', name: 'generate-pdf')]
     public function index(Request $request, PdfGeneratorService $pdfGeneratorService): Response
     {
         $form = $this->createForm(GeneratePdfType::class);

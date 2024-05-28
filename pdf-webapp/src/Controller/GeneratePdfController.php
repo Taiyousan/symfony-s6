@@ -26,8 +26,12 @@ class GeneratePdfController extends AbstractController
             return $pdfResponse;
         }
 
+        $user = $this->getUser();
+
+
         return $this->render('generate_pdf/index.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'user' => $user
         ]);
     }
 }

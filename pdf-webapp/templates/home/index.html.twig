@@ -10,5 +10,18 @@
 
 <div class="example-wrapper">
     <h1>HOME</h1>
+    {% if user %}
+        <p>Welcome, {{ user.firstname }}!</p>
+        <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
+    {%else%}
+        <li><a href="{{ path('app_login') }}">login</a></li>
+        <li><a href="{{ path('app_register') }}">Inscription</a></li>
+
+    {% endif %}
+    <ul>
+        <li><a href="{{ path('app_home') }}">home</a></li>
+        <li><a href="{{ path('app_generate-pdf') }}">generate-pdf</a></li>
+
+    </ul>
 </div>
 {% endblock %}

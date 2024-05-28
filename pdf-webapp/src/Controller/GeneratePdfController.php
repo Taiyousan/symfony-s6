@@ -11,7 +11,7 @@ use App\Service\PdfGeneratorService;
 
 class GeneratePdfController extends AbstractController
 {
-    #[Route('/generate-pdf', name: 'app_generate_pdf')]
+    #[Route('/generate-pdf', name: 'app_generate-pdf')]
     public function index(Request $request, PdfGeneratorService $pdfGeneratorService): Response
     {
         $form = $this->createForm(GeneratePdfType::class);
@@ -26,8 +26,12 @@ class GeneratePdfController extends AbstractController
             return $pdfResponse;
         }
 
+        $user = $this->getUser();
+
+
         return $this->render('generate_pdf/index.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'user' => $user
         ]);
     }
 }

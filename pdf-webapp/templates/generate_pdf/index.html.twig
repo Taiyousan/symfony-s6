@@ -1,27 +1,39 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello GeneratePdfController!{% endblock %}
+{% block title %}Convertir un fichier PDF{% endblock %}
 
 {% block body %}
 <style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    .example-wrapper {
+        margin: 1em auto;
+        max-width: 800px;
+        width: 95%;
+        font: 18px/1.5 sans-serif;
+    }
+    .example-wrapper code {
+        background: #F5F5F5;
+        padding: 2px 6px;
+    }
 </style>
 
-<div class="example-wrapper">
-    <h1>Convertir un fichier PDF</h1>
-    <p>Vous avez {{ conversionLeft }} conversions restantes aujourd'hui.</p>
+<div class="container mt-5 example-wrapper">
+    <h1 class="mb-4">Convertir un fichier PDF</h1>
+    <p class="lead">Vous avez {{ conversionLeft }} conversions restantes aujourd'hui.</p>
 
-{% if conversionLeft > 0 %}
-    {{ form(form) }}
-{% else %}
-    <p>Vous avez atteint la limite de conversion de PDF journalière.</p>
-    <li><a href="{{ path('app_home') }}">Retourner à l'accueil</a></li>
-    <li><a href="{{ path('app_handle_subscription') }}">Changer mon abonnement.</a></li>
-
-{% endif %}
-
-
-
+    {% if conversionLeft > 0 %}
+        {{ form_start(form, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
+            <div class="form-group">
+                {{ form_row(form.url, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        {{ form_end(form) }}
+    {% else %}
+        <div class="alert alert-warning" role="alert">
+            Vous avez atteint la limite de conversion de PDF journalière.
+        </div>
+        <ul class="list-unstyled">
+            <li><a href="{{ path('app_home') }}" class="btn btn-link">Retourner à l'accueil</a></li>
+            <li><a href="{{ path('app_handle_subscription') }}" class="btn btn-link">Changer mon abonnement</a></li>
+        </ul>
+    {% endif %}
 </div>
 {% endblock %}

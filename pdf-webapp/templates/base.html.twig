@@ -18,16 +18,16 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
-                        <a class="nav-link {% if app.request.attributes.get('_route') == 'app_home' %}active{% endif %}" aria-current="page" href="{{ path('app_home') }}">Home</a>
+                        <a class="nav-link {% if app.request.attributes.get('_route') == 'app_home' %}active{% endif %}" aria-current="page" href="{{ path('app_home') }}">Accueil</a>
                         {% if user %}
-                            <a class="nav-link {% if app.request.attributes.get('_route') == 'app_history' %}active{% endif %}" href="{{ path('app_history') }}">Mes PDFs</a>
+                            <a class="nav-link {% if app.request.attributes.get('_route') == 'app_history' %}active{% endif %}" href="{{ path('app_history') }}">Mes PDF</a>
                             <a class="nav-link {% if app.request.attributes.get('_route') == 'app_handle_subscription' %}active{% endif %}" href="{{ path('app_handle_subscription') }}">Gérer mon abonnement</a>
-                            <a class="nav-link {% if app.request.attributes.get('_route') == 'app_logout' %}active{% endif %}" href="{{ path('app_logout') }}">Se déconnecter</a>
+                            <a class="nav-link {% if app.request.attributes.get('_route') == 'app_logout' %}active{% endif %}" href="{{ path('app_logout') }}">Me déconnecter</a>
                         {% else %}
-                            <a class="nav-link {% if app.request.attributes.get('_route') == 'app_login' %}active{% endif %}" href="{{ path('app_login') }}">Login</a>
-                            <a class="nav-link {% if app.request.attributes.get('_route') == 'app_register' %}active{% endif %}" href="{{ path('app_register') }}">Inscription</a>
+                            <a class="nav-link {% if app.request.attributes.get('_route') == 'app_login' %}active{% endif %}" href="{{ path('app_login') }}">Me connecter</a>
+                            <a class="nav-link {% if app.request.attributes.get('_route') == 'app_register' %}active{% endif %}" href="{{ path('app_register') }}">M'inscrire</a>
                         {% endif %}
-                        <a class="nav-link {% if app.request.attributes.get('_route') == 'app_generate-pdf' %}active{% endif %}" href="{{ path('app_generate-pdf') }}">Generate PDF</a>
+                        <a class="nav-link {% if app.request.attributes.get('_route') == 'app_generate-pdf' %}active{% endif %}" href="{{ path('app_generate-pdf') }}">Générer un PDF</a>
                     </div>
                 </div>
             </div>

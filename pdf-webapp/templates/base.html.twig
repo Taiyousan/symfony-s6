@@ -17,6 +17,7 @@
             <ul>
                 <li><a href="{{ path('app_home') }}">Home</a></li>
                 {% if user %}
+                    <li><a href="{{ path('app_history') }}">Mes PDFs</a></li>
                     <li><a href="{{ path('app_handle_subscription') }}">Gérer mon abonnement</a></li>
                     <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
                 {% else %}

@@ -9,7 +9,9 @@
 </style>
 
 <div class="example-wrapper">
-{# if canConvert = true, alors on affiche le form #}
+    <h1>Convertir un fichier PDF</h1>
+    <p>Vous avez {{ conversionLeft }} conversions restantes aujourd'hui.</p>
+
 {% if conversionLeft > 0 %}
     {{ form(form) }}
 {% else %}

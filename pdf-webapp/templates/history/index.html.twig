@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PDF Gallery{% endblock %}
+
+{% block body %}
+<style>
+    .gallery-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .pdf-card {
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        background-color: #f9f9f9;
+        overflow: hidden;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .pdf-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    .iframe-container {
+        position: relative;
+        padding-top: 56.25%; /* 16:9 Aspect Ratio */
+        overflow: hidden;
+    }
+
+    .iframe-container embed {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .pdf-info {
+        padding: 10px;
+        text-align: center;
+    }
+
+    .pdf-buttons {
+        margin-top: 10px;
+    }
+
+    .pdf-buttons button {
+        margin: 0 5px;
+        padding: 5px 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: #007bff;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    .pdf-buttons button:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<div class="gallery-container">
+    {% for pdf in pdfs %}
+    <div class="pdf-card">
+        <div class="iframe-container">
+            <embed src="{{ pdf.path }}" type="application/pdf" width="100%" height="100%">
+        </div>
+        <div class="pdf-info">
+            <p>Nom du PDF : {{ pdf.title }}</p>
+            <p>Date de création : {{ pdf.createdAt|date('d/m/Y H:i:s') }}</p>
+            <p>Lien de la page convertie : <a href="{{ pdf.url }}">Lien</a></p>
+            <div class="pdf-buttons">
+                <button onclick="window.open('{{ pdf.path }}')">Afficher dans un nouvel onglet</button>
+                <a href="{{ pdf.path }}" download="{{ pdf.title }}.pdf"><button>Télécharger</button></a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -2,69 +2,31 @@
 
 {% block title %}Hello HandleSubscriptionController!{% endblock %}
 
+{% block stylesheets %}
+    {# Inclure le lien vers Bootstrap CSS ici #}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+{% endblock %}
+
 {% block body %}
-<style>
-
-.sub-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-}
-
-.sub-card {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid black;
-    padding: 10px;
-    margin: 10px;
-    width: 200px;
-    background-color: #f0f0f0;
-}
-
-
-.sub-card.active {
-    background-color: grey;
-}
-
-.sub-card span {
-    background-color: red;
-    color: white;
-    padding: 5px;
-    margin-bottom: 5px;
-}
-
-</style>
-
-<div class="user-sub-container">
-        <div class="user-sub">
-            <h1>Abonnement en cours : </h1>
-
-            <p>Abonnement : {{ currentSubscription.title }}</p>
-            <p>Limite de conversion : {{ currentSubscription.pdfLimit }}</p>
-            <p>Prix : {{ currentSubscription.price }}</p>
-            {# <p>Prochain renouvellement : {{ nextRenewalDate }}</p> #}
+<div class="container">
+                    <h1 class="card-title text-center mt-4 mb-4">Gérer mon abonnement</h1>
+    <div class="row">
+        {% for subscription in availableSubscriptions %}
+        <div class="col-md-4">
+            <div class="card {% if subscription.title == currentSubscription.title %} bg-secondary text-white{% endif %}">
+                <div class="card-body">
+                    {% if subscription.title == currentSubscription.title %}
+                        <span class="badge badge-danger mb-3">Abonnement en cours !</span>
+                    {% endif %}
+                    <h5 class="card-title">Abonnement : {{ subscription.title }}</h5>
+                    <p class="card-text">Limite de conversion : {{ subscription.pdfLimit }}</p>
+                    <p class="card-text">Prix : {{ subscription.price }}</p>
+                    <a href="{{ path('app_change_subscription', {'id': subscription.id}) }}" class="btn btn-primary">Choisir cet abonnement</a>
+                </div>
+            </div>
         </div>
-        <div class="available-sub">
-            <h1>Changer d'abonnement : </h1>
-
-            <div class="sub-list">
-                {% for subscription in availableSubscriptions %}
-                    <div class="sub-card {% if subscription.title == currentSubscription.title %} active{% endif %}">
-                   {% if subscription.title == currentSubscription.title %} <span> Abonnement en cours ! </span>{% endif %}
-                        <p>Abonnement : {{ subscription.title }}</p>
-                        <p>Limite de conversion : {{ subscription.pdfLimit }}</p>
-                        <p>Prix : {{ subscription.price }}</p>
-                        <div>
-                        <a href="{{ path('app_change_subscription', {'id': subscription.id}) }}">Choisir cet abonnement</a>
-                    </div>
-                    </div>
-                    
-                {% endfor %}
-            {# <p>Prochain renouvellement : {{ nextRenewalDate }}</p> #}
-        </div>
+        {% endfor %}
     </div>
-
+    {# <p>Prochain renouvellement : {{ nextRenewalDate }}</p> #}
+</div>
 {% endblock %}

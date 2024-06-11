@@ -21,7 +21,7 @@ class GeneratePdfType extends AbstractType
                 'required' => true,
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Generate PDF',
+                'label' => 'Convertir la page en PDF',
                 'attr' => [
                     'class' => 'btn btn-primary',
                     'formtarget' => '_blank',

@@ -3,25 +3,30 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>HOME</h1>
-    {% if user %}
-        <p>Welcome, {{ user.firstname }}!</p>
-        <li><a href="{{ path('app_history') }}">Mes PDFs</a></li>
-        <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
-    {%else%}
-        <li><a href="{{ path('app_login') }}">login</a></li>
-        <li><a href="{{ path('app_register') }}">Inscription</a></li>
-
-    {% endif %}
-    <ul>
-        <li><a href="{{ path('app_home') }}">home</a></li>
-        <li><a href="{{ path('app_generate-pdf') }}">generate-pdf</a></li>
-    </ul>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card my-5">
+                <div class="card-body">
+                    <h1 class="card-title text-center mb-4">Accueil</h1>
+                    {% if user %}
+                        <p class="card-text text-primary">Bienvenue, {{ user.firstname }}!</p>
+                        <ul class="list-group mb-3">
+                            <li class="list-group-item"><a href="{{ path('app_history') }}" class="text-primary text-decoration-none">Voir mes PDF</a></li>
+                            <li class="list-group-item"><a href="{{ path('app_logout') }}" class="text-danger text-decoration-none">Me déconnecter</a></li>
+                        </ul>
+                    {% else %}
+                        <ul class="list-group mb-3">
+                            <li class="list-group-item"><a href="{{ path('app_login') }}" class="text-primary text-decoration-none">Me connecter</a></li>
+                            <li class="list-group-item"><a href="{{ path('app_register') }}" class="text-primary text-decoration-none">M'inscrire</a></li>
+                        </ul>
+                    {% endif %}
+                    <ul class="list-group">
+                        <li class="list-group-item"><a href="{{ path('app_generate-pdf') }}" class="text-primary text-decoration-none">Générer un PDF</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

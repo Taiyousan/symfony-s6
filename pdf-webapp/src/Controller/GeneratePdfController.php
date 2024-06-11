@@ -30,17 +30,17 @@ class GeneratePdfController extends AbstractController
 
          $conversionLeft = $user->getSubscription()->getPdfLimit() - $pdfCount;
 
+         ;
 
-       if ($conversionLeft <= 0) {
-           $this->addFlash('danger', 'Vous avez atteint la limite de conversion journalière.');
-           return $this->redirectToRoute('app_home');
-       } else {
+       if ($conversionLeft > 0) {
         $form = $this->createForm(GeneratePdfType::class);
         $form->handleRequest($request);
+       } else {
+        $form = null;
        }
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $url = $form->get('url')->getData();
+       if ($form !== null && $form->isSubmitted() && $form->isValid()) {
+        $url = $form->get('url')->getData();
             $pdfContent = $pdfGeneratorService->generatePdf($url);
 
             // Sauvegarder le contenu du PDF dans un fichier
@@ -75,9 +75,16 @@ class GeneratePdfController extends AbstractController
         }
 
 
-        return $this->render('generate_pdf/index.html.twig', [
-            'form' => $form->createView(),
+        $dataToRender = [
             'user' => $user,
-        ]);
+            'conversionLeft' => $conversionLeft
+        ];
+        
+        if ($form !== null) {
+            $dataToRender['form'] = $form->createView();
+        }
+        
+        return $this->render('generate_pdf/index.html.twig', $dataToRender);
+        
     }
 }

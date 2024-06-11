@@ -9,6 +9,17 @@
 </style>
 
 <div class="example-wrapper">
-{{ form(form) }}
+{# if canConvert = true, alors on affiche le form #}
+{% if conversionLeft > 0 %}
+    {{ form(form) }}
+{% else %}
+    <p>Vous avez atteint la limite de conversion de PDF journalière.</p>
+    <li><a href="{{ path('app_home') }}">Retourner à l'accueil</a></li>
+    <li><a href="{{ path('app_handle_subscription') }}">Changer mon abonnement.</a></li>
+
+{% endif %}
+
+
+
 </div>
 {% endblock %}

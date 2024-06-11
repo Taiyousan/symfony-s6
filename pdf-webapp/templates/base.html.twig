@@ -22,7 +22,7 @@
                         {% if user %}
                             <a class="nav-link {% if app.request.attributes.get('_route') == 'app_history' %}active{% endif %}" href="{{ path('app_history') }}">Mes PDF</a>
                             <a class="nav-link {% if app.request.attributes.get('_route') == 'app_handle_subscription' %}active{% endif %}" href="{{ path('app_handle_subscription') }}">Gérer mon abonnement</a>
-                            <a class="nav-link {% if app.request.attributes.get('_route') == 'app_logout' %}active{% endif %}" href="{{ path('app_logout') }}">Me déconnecter</a>
+                            <a class="nav-link text-danger {% if app.request.attributes.get('_route') == 'app_logout' %}active{% endif %}" href="{{ path('app_logout') }}">Me déconnecter</a>
                         {% else %}
                             <a class="nav-link {% if app.request.attributes.get('_route') == 'app_login' %}active{% endif %}" href="{{ path('app_login') }}">Me connecter</a>
                             <a class="nav-link {% if app.request.attributes.get('_route') == 'app_register' %}active{% endif %}" href="{{ path('app_register') }}">M'inscrire</a>

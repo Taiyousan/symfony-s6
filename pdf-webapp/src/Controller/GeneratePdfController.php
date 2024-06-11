@@ -11,14 +11,33 @@ use App\Service\PdfGeneratorService;
 use App\Entity\Pdf;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Filesystem\Filesystem;
+use App\Repository\PdfRepository;
 
 class GeneratePdfController extends AbstractController
 {
     #[Route('/generate-pdf', name: 'app_generate-pdf')]
     public function index(Request $request, PdfGeneratorService $pdfGeneratorService, EntityManagerInterface $entityManager): Response
     {
+
+        $user = $this->getUser();
+        $pdfRepository = $entityManager->getRepository(Pdf::class);
+        // check la limite journalière
+         // Définir les dates de début et de fin pour la recherche
+         $startOfDay = new \DateTime('today');
+         $endOfDay = new \DateTime('tomorrow');
+
+         $pdfCount = $pdfRepository->countPdfGeneratedByUserOnDate($user->getId(), $startOfDay, $endOfDay);
+
+         $conversionLeft = $user->getSubscription()->getPdfLimit() - $pdfCount;
+
+
+       if ($conversionLeft <= 0) {
+           $this->addFlash('danger', 'Vous avez atteint la limite de conversion journalière.');
+           return $this->redirectToRoute('app_home');
+       } else {
         $form = $this->createForm(GeneratePdfType::class);
         $form->handleRequest($request);
+       }
 
         if ($form->isSubmitted() && $form->isValid()) {
             $url = $form->get('url')->getData();
@@ -55,7 +74,6 @@ class GeneratePdfController extends AbstractController
             return $pdfResponse;
         }
 
-        $user = $this->getUser();
 
         return $this->render('generate_pdf/index.html.twig', [
             'form' => $form->createView(),

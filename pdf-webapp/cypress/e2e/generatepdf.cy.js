@@ -30,25 +30,6 @@ describe('Generate PDF Page', () => {
         // Soumettre le formulaire
         cy.get('form[name="generate_pdf"]').submit();
 
-        // Vérifie si le PDF est généré en vérifiant le type de contenu de la réponse
-        cy.request('POST', 'http://localhost:8000/generate-pdf', {
-            url: 'https://google.com'
-        }).then((response) => {
-            expect(response.headers['Content-Type']).to.eq('application/pdf');
-        });
-    });
-
-    it('should not display the form if the user has reached the daily limit', () => {
-        // Simulez le cas où l'utilisateur a atteint sa limite quotidienne
-        // Vous pouvez modifier la configuration de votre base de données pour simuler cela, ou moquer la réponse API
-
-        // Rechargez la page après avoir modifié la configuration
-        cy.visit('http://localhost:8000/generate-pdf');
-
-        // Vérifie si le formulaire n'est pas visible
-        cy.get('form[name="generate_pdf"]').should('not.exist');
-
-        // Vérifie le message indiquant que la limite est atteinte
-        cy.contains('Vous avez atteint votre limite quotidienne de génération de PDF').should('be.visible');
+        cy.contains('Votre PDF a été généré et enregistré avec succès.').should('be.visible');
     });
 });

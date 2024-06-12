@@ -21,7 +21,7 @@
     <p class="lead">Vous avez {{ conversionLeft }} conversions restantes aujourd'hui.</p>
 
     {% if conversionLeft > 0 %}
-        {{ form_start(form, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
+        {{ form_start(form, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate', 'name':'generate_pdf'}}) }}
             <div class="form-group">
                 {{ form_row(form.url, {'attr': {'class': 'form-control'}}) }}
             </div>

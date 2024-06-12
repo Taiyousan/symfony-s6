@@ -15,7 +15,7 @@ jobs:
     env:
       working-directory: ./pdf-webapp
     steps:
-      #  To automatically get bug fixes and new Php versions for shivammathur/setup-php,
+      # To automatically get bug fixes and new Php versions for shivammathur/setup-php,
       # change this to (see https://github.com/shivammathur/setup-php#bookmark-versioning):
       # uses: shivammathur/setup-php@v2
       - uses: shivammathur/setup-php@2cb9b829437ee246e9b3cac53555a39208ca6d28
@@ -26,7 +26,7 @@ jobs:
         with:
           working-directory: ${{ env.working-directory }}
       - name: Copy .env.test.local
-        run: php -r "file_exists('.env.test.local') || copy('.env.test', '.env.test.local');" 
+        run: php -r "file_exists('.env.test.local') || copy('.env.test', '.env.test.local');"
         working-directory: ${{ env.working-directory }}
       - name: Cache Composer packages
         id: composer-cache
@@ -61,4 +61,26 @@ jobs:
         working-directory: ${{ env.working-directory }}
       - name: Run PHPMD
         run: vendor/bin/phpmd src/ text cleancode,codesize,controversial,design
+        working-directory: ${{ env.working-directory }}
+
+      # Add Cypress to the workflow
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      - name: Cache NPM dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install NPM dependencies
+        run: npm install
+        working-directory: ${{ env.working-directory }}
+      - name: Install Cypress
+        run: npm install cypress
+        working-directory: ${{ env.working-directory }}
+      - name: Run Cypress tests
+        run: npx cypress run
         working-directory: ${{ env.working-directory }}
